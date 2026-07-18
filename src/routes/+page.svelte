@@ -52,9 +52,8 @@
 </script>
 
 <main class="page">
-	<header class="hero">
-		<p class="eyebrow">&lt;/ ns-budget &gt;</p>
-		<h1>Cash flow scheduler</h1>
+	<header class="intro">
+		<h2>Cash flow scheduler</h2>
 		<p class="lede">
 			Configure recurring income and bills, then project a running balance. Demo data is synthetic —
 			enter your own figures; nothing is saved yet.
@@ -143,25 +142,17 @@
 	.page {
 		max-width: 1080px;
 		margin: 0 auto;
-		padding: var(--space-8) var(--space-5) var(--space-10);
+		padding: var(--space-6) var(--space-5) var(--space-10);
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-6);
 	}
 
-	.hero h1 {
+	.intro h2 {
 		margin: 0 0 var(--space-3);
 		font-family: var(--font-heading);
-		font-size: clamp(2rem, 4vw, 2.75rem);
+		font-size: clamp(1.5rem, 3vw, 2rem);
 		letter-spacing: var(--tracking-tight);
-	}
-
-	.eyebrow {
-		margin: 0 0 var(--space-2);
-		font-family: var(--font-mono);
-		font-size: var(--text-xs);
-		color: var(--brand);
-		letter-spacing: var(--tracking-wide);
 	}
 
 	.lede {
