@@ -8,7 +8,7 @@ Ordered **backlog**: **priority tiers** (P0/P1/P2) group **numbered work items**
 
 ## Status (where we are)
 
-- **Current focus:** P0 #1 — cash flow scheduler, **M2** (app scaffold + P0 UX). See [`features/cash-flow-scheduler.md`](features/cash-flow-scheduler.md). M1 scheduling engine done.
+- **Current focus:** P0 #1 — cash flow scheduler, **M3** (plan persistence). See [`features/cash-flow-scheduler.md`](features/cash-flow-scheduler.md). M1 engine + M2 app/UX done.
 - **Pre-launch / MVP:** see [`mvp-scope.md`](mvp-scope.md)
 
 ---
@@ -28,7 +28,7 @@ Ordered **backlog**: **priority tiers** (P0/P1/P2) group **numbered work items**
 ## P0
 
 1. [feature] **Cash flow scheduler** — recurring income/bills, horizon projection, deficit visualization, named shareable plans. Feature doc: [`features/cash-flow-scheduler.md`](features/cash-flow-scheduler.md) (M1 → M2 → M3).
-2. [chore] **Wire verify commands** — lint/test (and typecheck if applicable) in `.cursor/nudl.json` once framework is chosen (M2).
+2. ~~[chore] **Wire verify commands**~~ — **Done (M2)** — `npm test` / `npm run check` / `npm run lint` in `.cursor/nudl.json`.
 
 ---
 
