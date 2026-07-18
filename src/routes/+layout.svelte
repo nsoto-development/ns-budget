@@ -1,4 +1,5 @@
 <script lang="ts">
+	import AppHeader from '$lib/components/AppHeader.svelte';
 	import favicon from '$lib/assets/favicon.svg';
 	import '../app.css';
 
@@ -15,5 +16,16 @@
 </svelte:head>
 
 <div id="app-shell">
+	<div class="chrome-wrap">
+		<AppHeader />
+	</div>
 	{@render children()}
 </div>
+
+<style>
+	.chrome-wrap {
+		display: flex;
+		justify-content: center;
+		padding: var(--space-6) var(--space-5) 0;
+	}
+</style>
