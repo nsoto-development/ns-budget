@@ -1,0 +1,26 @@
+---
+description: Roadmap alignment and feature intake (when editing app code or key config)
+globs:
+  - src/**/*
+  - app/**/*
+  - lib/**/*
+  - cli/**/*
+  - package.json
+  - pyproject.toml
+  - requirements.txt
+  - .env.example
+alwaysApply: false
+---
+
+# NUDL — product discipline (Cursor)
+
+**Attached when** matched files are in context (see rule globs). For **doc-only or planning** chats, `@`-mention [`docs/roadmap.md`](../../docs/roadmap.md) or this rule when you want the same checklist.
+
+For **non-trivial** work — new user-facing behavior, schema/migrations, auth or tenancy assumptions, background jobs, integrations, webhooks, or cross-cutting config:
+
+1. **Roadmap** — Prefer an explicit `@docs/roadmap.md` (or stated **P-tier + work item #**) in the user request. Name the **milestone / this-pass scope** when the work item is large. If the work is not on the roadmap, suggest updating [`docs/roadmap.md`](../../docs/roadmap.md) first, or treat as a **labeled spike** (timeboxed; no merge without a follow-up decision).
+2. **Feature note** — Add or update [`docs/features/<topic>.md`](../../docs/features/) for **feature** SSOT when building capabilities, or when any work item changes long-lived contracts (DB, auth, queues, env). Include milestones when delivery spans multiple passes; include v1 scope, **non-goals**, and **future hooks** where relevant.
+3. **Epic** — For **large multi-slice non-feature** work, use [`docs/epics/<topic>.md`](../../docs/epics/) as ephemeral execution SSOT; delete when Done. Do not treat epics as living product documentation.
+4. **Scope** — **Minimal diffs**; inject seams for external I/O where tests need them. No new **`process.env`** (or equivalent secrets config) without [`.env.example`](../../.env.example) and a doc mention ([`docs/process/cursor-workflow.md`](../../docs/process/cursor-workflow.md)).
+
+**Templates and checklist:** [`docs/process/cursor-workflow.md`](../../docs/process/cursor-workflow.md)

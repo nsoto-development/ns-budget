@@ -1,0 +1,28 @@
+# Dependencies and virtual environments
+node_modules
+venv
+.venv
+__pycache__
+*.pyc
+.Python
+
+# Build output
+.next
+out
+build
+dist
+
+# Coverage and caches
+coverage
+.pytest_cache
+.mypy_cache
+.ruff_cache
+*.tsbuildinfo
+
+# Deploy / local tooling
+.vercel
+
+# Secrets — never index for AI context
+.env
+.env.*
+!.env.example

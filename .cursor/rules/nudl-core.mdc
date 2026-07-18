@@ -1,0 +1,29 @@
+---
+description: NUDL core — product discipline reminders, minimal diffs, git hygiene
+alwaysApply: true
+---
+
+# NUDL — core
+
+## Product discipline (reminder)
+
+For **non-trivial** feature work, align with [`docs/roadmap.md`](../../docs/roadmap.md) and [`docs/process/cursor-workflow.md`](../../docs/process/cursor-workflow.md). Full checklist loads when editing matched code/config paths (see `nudl-product-discipline.mdc` globs in [`.cursor/nudl.json`](../../.cursor/nudl.json)).
+
+## Methodology plan (optional)
+
+If `anchors.methodologyPlan` in `nudl.json` points to a north-star doc, treat it as read-only unless the user explicitly asks to edit it.
+
+## Changes
+
+- Match existing naming, imports, and patterns in the project repo.
+- **Minimal diffs**: no drive-by refactors or unrelated files.
+
+## Git (agents)
+
+Do **not** put editor attribution in commits — no `Made-with: Cursor`, “Made with Cursor”, or similar footers in message, body, or PR text. See `AGENTS.md`.
+
+**HITM handoff:** Do **not** `git push` or `gh pr create` unless the user explicitly asks to submit/open the PR in **this message**. Milestone work ends at local commit + verify. For PR text, suggest **`/pr-desc`** (paste-ready markdown) — not an auto-opened PR.
+
+## After substantive edits
+
+Run verify commands from [`.cursor/nudl.json`](../../.cursor/nudl.json) `verify.commands` when configured. Fix failures before handing off.

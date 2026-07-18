@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "layout": "app",
+  "project": "ns-budget",
+  "anchors": {
+    "roadmap": "docs/roadmap.md",
+    "mvpScope": "docs/mvp-scope.md",
+    "workflow": "docs/process/cursor-workflow.md",
+    "agentsIndex": "AGENTS.md",
+    "featuresDir": "docs/features",
+    "epicsDir": "docs/epics",
+    "methodologyPlan": null
+  },
+  "disciplineGlobs": [
+    "src/**/*",
+    "app/**/*",
+    "lib/**/*",
+    "cli/**/*",
+    "package.json",
+    "pyproject.toml",
+    "requirements.txt",
+    ".env.example"
+  ],
+  "flags": {
+    "startMilestone": true,
+    "quickGate": true,
+    "plan": true,
+    "verifyOnStop": false,
+    "featureDocTriggers": true,
+    "autoCommitOnCheckpoint": false
+  },
+  "verify": {
+    "commands": []
+  }
+}
