@@ -8,4 +8,4 @@ This brief was **promoted** into NUDL artefacts. Use those as SSOT — do not ex
 | Backlog / P-tiers | [`roadmap.md`](roadmap.md) |
 | Launch bar + non-goals | [`mvp-scope.md`](mvp-scope.md) |
 
-**Next step:** `/nudl-start-milestone` with `@docs/features/cash-flow-scheduler.md` — **M2: app scaffold + P0 UX**.
+**Next step:** `/nudl-start-milestone` with `@docs/features/cash-flow-scheduler.md` — **M3: plan persistence**.
