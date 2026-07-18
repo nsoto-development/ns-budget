@@ -1,0 +1,22 @@
+# Package Managers
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lock
+bun.lockb
+
+# Build / generated
+.svelte-kit
+build
+.vercel
+_sk_scaffold
+node_modules
+
+# Docs / NUDL (keep markdown as authored)
+docs
+AGENTS.md
+README.md
+.cursor
+
+# Engine (M1 style; leave as-authored)
+lib/**/*.ts

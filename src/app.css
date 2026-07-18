@@ -1,0 +1,23 @@
+@import '@nsoto/portfolio-tokens/styles.css';
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	min-height: 100%;
+}
+
+body {
+	margin: 0;
+	background: var(--bg-canvas);
+	color: var(--text-primary);
+	font-family: var(--font-body);
+}
+
+#app-shell {
+	min-height: 100vh;
+}

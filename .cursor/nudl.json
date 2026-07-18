@@ -30,6 +30,6 @@
     "autoCommitOnCheckpoint": false
   },
   "verify": {
-    "commands": []
+    "commands": ["npm test", "npm run check", "npm run lint"]
   }
 }
