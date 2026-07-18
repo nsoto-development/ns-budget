@@ -1,9 +1,24 @@
-node_modules/
-dist/
-*.tsbuildinfo
+node_modules
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
+/_sk_scaffold
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Env
 .env
 .env.*
 !.env.example
-coverage/
-.vite/
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*

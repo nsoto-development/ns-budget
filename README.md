@@ -2,7 +2,7 @@
 
 Cash flow scheduler for the nsoto.dev portfolio — recurring income and bills, calendar-accurate projection, deficit visualization, and (later) anonymous shareable plans.
 
-**Status:** M1 complete — plain TypeScript scheduling engine with Vitest coverage. No UI yet.
+**Status:** M2 complete — SvelteKit app + P0 UX on top of the M1 scheduling engine. Persistence is M3.
 
 Planned live URL: [budget.nsoto.dev](https://budget.nsoto.dev) (or similar)
 
@@ -24,9 +24,9 @@ Feature SSOT: [`docs/features/cash-flow-scheduler.md`](docs/features/cash-flow-s
 - `dailyDeltas` surplus stream hook for a later P1 investing comparison
 - Vitest unit tests for month-end, semi-monthly, leap years, and deficit cases
 
-### Planned — M2
+### Shipped — M2
 
-- SvelteKit scaffold + nsoto design-system consumption
+- SvelteKit scaffold + `@nsoto/portfolio-tokens` (hand-rolled Svelte `components/ui/`; React `@nsoto/portfolio-ui` not used)
 - Income/bill config UI, starting balance + horizon
 - Running-balance chart (deficit highlighted) and summary stats wired to the engine
 
@@ -48,33 +48,32 @@ See [`docs/roadmap.md`](docs/roadmap.md) for the full backlog and [`docs/mvp-sco
 
 | Layer | Choice |
 |-------|--------|
-| Engine (now) | TypeScript (strict) + Vitest |
-| App (M2) | SvelteKit |
+| Engine | TypeScript (strict) + Vitest — `lib/scheduling/` |
+| App (M2) | SvelteKit + `@nsoto/portfolio-tokens` + app-owned Svelte UI |
 | Host / DB (M2–M3) | Vercel + Neon |
 | Auth | None — anonymous plan IDs |
 
 ## Architecture
 
 ```
-lib/scheduling/
-├── types.ts        # IsoDate, RecurrenceRule, ScheduleInput/Result
-├── dates.ts        # Civil calendar helpers
-├── recurrence.ts   # Occurrence generation
-├── events.ts       # Income/bill → dated events
-├── schedule.ts     # projectSchedule (running balance)
-└── index.ts        # Public exports
+lib/scheduling/          # Framework-agnostic engine (M1)
+src/                     # SvelteKit app (M2)
+  routes/                # UI wired to projectSchedule
+  lib/components/ui/     # Token-styled Svelte primitives
+  lib/scheduling.ts      # Re-export of engine for $lib
 ```
 
-Pipeline: recurrence rules → event generation → running-balance series.
+Pipeline: recurrence rules → event generation → running-balance series → client preview chart.
 
 ## Getting started
 
 ```bash
 npm install
 npm test
+npm run dev
 ```
 
-Watch mode: `npm run test:watch`
+Watch tests: `npm run test:watch`
 
 ## Docs
 
