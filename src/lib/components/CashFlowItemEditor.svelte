@@ -2,7 +2,7 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
 	import Select from '$lib/components/ui/Select.svelte';
-	import type { CashFlowItem, Weekday } from '$lib/scheduling';
+	import { addDays, weekdayOf, type CashFlowItem, type Weekday } from '$lib/scheduling';
 	import {
 		defaultRecurrence,
 		recurrenceOptions,
@@ -18,6 +18,28 @@
 	}
 
 	let { item, startDate, onchange, onremove }: Props = $props();
+
+	const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+	/** Weekly/biweekly require anchor's weekday to equal the rule weekday. */
+	function alignAnchor(anchor: string, weekday: Weekday): string {
+		if (!ISO_DATE.test(anchor)) return anchor;
+		try {
+			const diff = (weekday - weekdayOf(anchor) + 7) % 7;
+			return diff === 0 ? anchor : addDays(anchor, diff);
+		} catch {
+			return anchor;
+		}
+	}
+
+	function weekdayForAnchor(anchor: string, fallback: Weekday): Weekday {
+		if (!ISO_DATE.test(anchor)) return fallback;
+		try {
+			return weekdayOf(anchor);
+		} catch {
+			return fallback;
+		}
+	}
 
 	function patch(partial: Partial<CashFlowItem>) {
 		onchange({ ...item, ...partial });
@@ -91,15 +113,17 @@
 			label="Weekday"
 			options={weekdayOptions}
 			value={String(r.weekday)}
-			onchange={(e) =>
+			onchange={(e) => {
+				const weekday = Number(e.currentTarget.value) as Weekday;
 				patch({
 					recurrence: {
 						kind: 'weekly',
-						weekday: Number(e.currentTarget.value) as Weekday,
+						weekday,
 						intervalWeeks: r.intervalWeeks,
-						anchor: r.anchor
+						anchor: alignAnchor(r.anchor, weekday)
 					}
-				})}
+				});
+			}}
 		/>
 		<Input
 			label="Every N weeks"
@@ -124,15 +148,17 @@
 			label="Anchor"
 			type="date"
 			value={r.anchor}
-			oninput={(e) =>
+			oninput={(e) => {
+				const anchor = e.currentTarget.value;
 				patch({
 					recurrence: {
 						kind: 'weekly',
-						weekday: r.weekday,
+						weekday: weekdayForAnchor(anchor, r.weekday),
 						intervalWeeks: r.intervalWeeks,
-						anchor: e.currentTarget.value
+						anchor
 					}
-				})}
+				});
+			}}
 		/>
 	{:else if item.recurrence.kind === 'biweekly'}
 		{@const r = item.recurrence}
@@ -140,27 +166,31 @@
 			label="Weekday"
 			options={weekdayOptions}
 			value={String(r.weekday)}
-			onchange={(e) =>
+			onchange={(e) => {
+				const weekday = Number(e.currentTarget.value) as Weekday;
 				patch({
 					recurrence: {
 						kind: 'biweekly',
-						weekday: Number(e.currentTarget.value) as Weekday,
-						anchor: r.anchor
+						weekday,
+						anchor: alignAnchor(r.anchor, weekday)
 					}
-				})}
+				});
+			}}
 		/>
 		<Input
 			label="Anchor"
 			type="date"
 			value={r.anchor}
-			oninput={(e) =>
+			oninput={(e) => {
+				const anchor = e.currentTarget.value;
 				patch({
 					recurrence: {
 						kind: 'biweekly',
-						weekday: r.weekday,
-						anchor: e.currentTarget.value
+						weekday: weekdayForAnchor(anchor, r.weekday),
+						anchor
 					}
-				})}
+				});
+			}}
 		/>
 	{:else if item.recurrence.kind === 'monthly'}
 		{@const r = item.recurrence}
