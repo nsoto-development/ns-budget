@@ -56,16 +56,27 @@
 		saveDraft(currentPlan());
 	});
 
-	const result = $derived.by(() => {
+	const projection = $derived.by(() => {
 		const balance = Number(balanceStr);
 		const horizon = Number(horizonStr);
-		return projectSchedule({
-			startingBalance: Number.isFinite(balance) ? balance : 0,
-			startDate,
-			horizonDays: Number.isFinite(horizon) && horizon >= 1 ? Math.floor(horizon) : 1,
-			items
-		});
+		try {
+			const result = projectSchedule({
+				startingBalance: Number.isFinite(balance) ? balance : 0,
+				startDate,
+				horizonDays: Number.isFinite(horizon) && horizon >= 1 ? Math.floor(horizon) : 1,
+				items
+			});
+			return { result, error: null as string | null };
+		} catch (err) {
+			return {
+				result: null,
+				error: err instanceof Error ? err.message : 'Could not project this schedule'
+			};
+		}
 	});
+
+	const result = $derived(projection.result);
+	const projectionError = $derived(projection.error);
 
 	function replaceItem(id: string, next: CashFlowItem) {
 		items = items.map((it) => (it.id === id ? next : it));
@@ -162,7 +173,11 @@
 
 		<Card class="panel">
 			<h2>Summary</h2>
-			<SummaryStats summary={result.summary} />
+			{#if result}
+				<SummaryStats summary={result.summary} />
+			{:else}
+				<p class="error" role="alert">{projectionError}</p>
+			{/if}
 		</Card>
 	</section>
 
@@ -172,7 +187,11 @@
 				<h2>Running balance</h2>
 				<p class="hint">Red bands mark days below zero.</p>
 			</div>
-			<BalanceChart series={result.series} />
+			{#if result}
+				<BalanceChart series={result.series} />
+			{:else}
+				<p class="error" role="alert">Fix the highlighted schedule input to see the projection.</p>
+			{/if}
 		</Card>
 	</section>
 
