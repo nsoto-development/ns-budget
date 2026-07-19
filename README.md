@@ -1,8 +1,8 @@
 # ns-budget
 
-Cash flow scheduler for the nsoto.dev portfolio — recurring income and bills, calendar-accurate projection, deficit visualization, and (later) anonymous shareable plans.
+Cash flow scheduler for the nsoto.dev portfolio — recurring income and bills, calendar-accurate projection, deficit visualization, local draft, and plan file import/export.
 
-**Status:** M2 complete — SvelteKit app + P0 UX on top of the M1 scheduling engine. Persistence is M3.
+**Status:** P0 cash flow scheduler complete (M1–M3). Next: P1 investing comparison or deploy polish.
 
 Planned live URL: [budget.nsoto.dev](https://budget.nsoto.dev) (or similar)
 
@@ -10,7 +10,7 @@ Planned live URL: [budget.nsoto.dev](https://budget.nsoto.dev) (or similar)
 
 Users configure recurring **income** and **bills**, a starting balance, and a horizon. The app projects a running balance forward and flags deficit vs. surplus periods.
 
-The interesting part for this repo is a **framework-agnostic scheduling engine** (recurrence → events → running balance) that works client-side for live preview and can run on the server later. Public demos use synthetic or user-entered data only — never real personal finances.
+The interesting part for this repo is a **framework-agnostic scheduling engine** (recurrence → events → running balance) that works client-side for live preview and can run on the server later. Public demos use synthetic or user-entered data only — never real personal finances. Plans stay on-device (`localStorage` draft + JSON file export/import).
 
 Feature SSOT: [`docs/features/cash-flow-scheduler.md`](docs/features/cash-flow-scheduler.md)
 
@@ -30,10 +30,12 @@ Feature SSOT: [`docs/features/cash-flow-scheduler.md`](docs/features/cash-flow-s
 - Income/bill config UI, starting balance + horizon
 - Running-balance chart (deficit highlighted) and summary stats wired to the engine
 
-### Planned — M3
+### Shipped — M3
 
-- Named plans, save/load API, Neon Postgres on Vercel
-- Anonymous shareable plan IDs (no accounts)
+- Versioned plan document (`src/lib/planDocument.ts`)
+- Local draft in `localStorage` (survive refresh / navigate-away)
+- Export download + import via file picker
+- No server-side plan storage (Neon/share links deferred; see feature doc)
 
 ### Later
 
@@ -49,16 +51,20 @@ See [`docs/roadmap.md`](docs/roadmap.md) for the full backlog and [`docs/mvp-sco
 | Layer | Choice |
 |-------|--------|
 | Engine | TypeScript (strict) + Vitest — `lib/scheduling/` |
-| App (M2) | SvelteKit + `@nsoto/portfolio-tokens` + app-owned Svelte UI |
-| Host / DB (M2–M3) | Vercel + Neon |
-| Auth | None — anonymous plan IDs |
+| App | SvelteKit + `@nsoto/portfolio-tokens` + app-owned Svelte UI |
+| Host | Vercel |
+| Persistence | File import/export + `localStorage` draft (no DB) |
+| Auth | None |
 
 ## Architecture
 
 ```
 lib/scheduling/          # Framework-agnostic engine (M1)
-src/                     # SvelteKit app (M2)
-  routes/                # UI wired to projectSchedule
+src/                     # SvelteKit app (M2+)
+  routes/                # UI + draft/file persistence
+  lib/planDocument.ts    # Versioned plan serialize/parse
+  lib/planDraft.ts       # localStorage draft
+  lib/planFile.ts        # Download / file read
   lib/components/ui/     # Token-styled Svelte primitives
   lib/scheduling.ts      # Re-export of engine for $lib
 ```

@@ -17,7 +17,7 @@ export function createDemoPlan(): DemoPlanState {
 			{
 				id: 'paycheck',
 				name: 'Paycheck',
-				amount: 2200,
+				amount: 1000,
 				kind: 'income',
 				recurrence: {
 					kind: 'biweekly',
