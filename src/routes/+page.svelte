@@ -356,4 +356,21 @@
 			grid-template-columns: 1fr;
 		}
 	}
+
+	@media (max-width: 640px) {
+		.page {
+			padding: var(--space-4) var(--space-3) var(--space-8);
+			gap: var(--space-5);
+		}
+
+		.panel-head {
+			flex-direction: column;
+			align-items: stretch;
+			gap: var(--space-2);
+		}
+
+		.actions {
+			justify-content: flex-start;
+		}
+	}
 </style>
