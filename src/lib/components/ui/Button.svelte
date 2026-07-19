@@ -108,4 +108,12 @@
 		box-shadow: none;
 		cursor: not-allowed;
 	}
+
+	@media (max-width: 640px) {
+		.btn {
+			min-height: 44px;
+			padding-left: 14px;
+			padding-right: 14px;
+		}
+	}
 </style>
