@@ -62,7 +62,7 @@
 	}
 
 	.title a {
-		color: var(--text-primary);
+		color: var(--link);
 		text-decoration: none;
 		transition:
 			color 200ms ease,
@@ -70,7 +70,7 @@
 	}
 
 	.title a:hover {
-		color: var(--brand);
+		color: var(--link-hover);
 		opacity: 0.9;
 	}
 
