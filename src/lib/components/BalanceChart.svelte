@@ -9,7 +9,7 @@
 
 	const width = 720;
 	const height = 280;
-	const pad = { top: 16, right: 16, bottom: 36, left: 56 };
+	const pad = { top: 16, right: 16, bottom: 36, left: 64 };
 
 	const plot = $derived.by(() => {
 		if (series.length === 0) {
@@ -110,13 +110,15 @@
 		{/each}
 
 		<text x={pad.left} y={height - 10} class="axis">{plot.labels.start}</text>
-		<text x={width / 2} y={height - 10} text-anchor="middle" class="axis">{plot.labels.mid}</text>
+		<text x={width / 2} y={height - 10} text-anchor="middle" class="axis axis-mid"
+			>{plot.labels.mid}</text
+		>
 		<text x={width - pad.right} y={height - 10} text-anchor="end" class="axis"
 			>{plot.labels.end}</text
 		>
 
-		<text x={4} y={pad.top + 4} class="axis">{fmt(plot.maxB)}</text>
-		<text x={4} y={height - pad.bottom} class="axis">{fmt(plot.minB)}</text>
+		<text x={6} y={pad.top + 4} class="axis">{fmt(plot.maxB)}</text>
+		<text x={6} y={height - pad.bottom} class="axis">{fmt(plot.minB)}</text>
 	</svg>
 {:else}
 	<p class="empty">Add a horizon with at least one day to see the chart.</p>
@@ -154,6 +156,16 @@
 		fill: var(--text-tertiary);
 		font-family: var(--font-mono);
 		font-size: 10px;
+	}
+
+	@media (max-width: 640px) {
+		.axis {
+			font-size: 9px;
+		}
+
+		.axis-mid {
+			display: none;
+		}
 	}
 
 	.empty {

@@ -83,4 +83,12 @@
 		font-size: var(--text-xs);
 		color: var(--status-danger);
 	}
+
+	@media (max-width: 640px) {
+		input {
+			font-size: 1rem;
+			min-height: 44px;
+			padding: 12px;
+		}
+	}
 </style>

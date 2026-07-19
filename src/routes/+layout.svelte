@@ -23,9 +23,22 @@
 </div>
 
 <style>
+	#app-shell {
+		padding-top: env(safe-area-inset-top, 0px);
+		padding-right: env(safe-area-inset-right, 0px);
+		padding-bottom: env(safe-area-inset-bottom, 0px);
+		padding-left: env(safe-area-inset-left, 0px);
+	}
+
 	.chrome-wrap {
 		display: flex;
 		justify-content: center;
 		padding: var(--space-6) var(--space-5) 0;
+	}
+
+	@media (max-width: 640px) {
+		.chrome-wrap {
+			padding: var(--space-4) var(--space-3) 0;
+		}
 	}
 </style>

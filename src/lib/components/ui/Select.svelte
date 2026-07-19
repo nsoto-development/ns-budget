@@ -89,4 +89,12 @@
 		font-family: var(--font-mono);
 		font-size: var(--text-xs);
 	}
+
+	@media (max-width: 640px) {
+		select {
+			font-size: 1rem;
+			min-height: 44px;
+			padding: 12px 36px 12px 12px;
+		}
+	}
 </style>
