@@ -1,6 +1,18 @@
-import type { CashFlowItem, RecurrenceRule } from '$lib/scheduling';
+import { weekdayOf, type CashFlowItem, type RecurrenceRule, type Weekday } from '$lib/scheduling';
 
 export type RecurrenceKind = RecurrenceRule['kind'];
+
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+/** Weekday of the anchor date; weekly/biweekly rules require the two to match. */
+function anchorWeekday(anchor: string, fallback: Weekday = 5): Weekday {
+	if (!ISO_DATE.test(anchor)) return fallback;
+	try {
+		return weekdayOf(anchor);
+	} catch {
+		return fallback;
+	}
+}
 
 export const recurrenceOptions: { value: RecurrenceKind; label: string }[] = [
 	{ value: 'weekly', label: 'Weekly' },
@@ -23,9 +35,9 @@ export const weekdayOptions = [
 export function defaultRecurrence(kind: RecurrenceKind, anchor: string): RecurrenceRule {
 	switch (kind) {
 		case 'weekly':
-			return { kind: 'weekly', weekday: 5, intervalWeeks: 1, anchor };
+			return { kind: 'weekly', weekday: anchorWeekday(anchor), intervalWeeks: 1, anchor };
 		case 'biweekly':
-			return { kind: 'biweekly', weekday: 5, anchor };
+			return { kind: 'biweekly', weekday: anchorWeekday(anchor), anchor };
 		case 'monthly':
 			return { kind: 'monthly', dayOfMonth: 1 };
 		case 'semiMonthly':
