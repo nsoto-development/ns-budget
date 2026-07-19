@@ -16,12 +16,13 @@
 1. User configures recurring income sources and bills, a starting balance, and a projection horizon.
 2. App projects a running balance forward with calendar-accurate scheduling (not flat day-offset math).
 3. Deficit periods are visually distinct from surplus; summary stats are shown.
-4. User can save a named plan, reload it, and share via anonymous link — no accounts.
+4. User can export a named plan to a file and import it to reload; the browser also keeps a local draft so refresh / navigate-away does not lose unsaved work — no accounts, no server-side plan storage.
 5. Scheduling engine is tested and portable (plain TypeScript module).
 
 ## Non-goals (MVP)
 
 - User authentication or multi-user tenancy.
+- Server-side plan storage or anonymous share URLs.
 - Real personal financial data in the repo, seeds, or demos.
 - Investment strategy comparison (P1).
 - Import from Excel or bank feeds.
