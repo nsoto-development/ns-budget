@@ -22,3 +22,14 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Local AI / NUDL tooling (kept on this machine only; not part of the public project)
+.cursor/
+.cursorignore
+.claude/
+AGENTS.md
+CLAUDE.md
+docs/how-to-use.md
+docs/process/
+docs/features/_template.md
+docs/epics/
